@@ -10,8 +10,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  TextEditingController textEditingController = TextEditingController();
-  String _value = "";
+  TextEditingController firsttextEditingController = TextEditingController();
+  TextEditingController secondtextEditingController = TextEditingController();
+  double _firstValue = 0;
+  double _secondValue = 0;
+  double _resultValue = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -21,22 +24,92 @@ class _MyAppState extends State<MyApp> {
           title: const Text('JTKMS Daily Record'),
         ),
         body: Center(
+            child: Padding(
+          padding: const EdgeInsets.all(25.0),
+          child: SingleChildScrollView(
             child: Column(
-          children: [
-            const Text('Please Enter Your Name'),
-            TextField(controller: textEditingController),
-            ElevatedButton(onPressed: _pressMe, child: const Text('Press Me')),
-            Text(_value)
-          ],
+              children: [
+                const Text(
+                  'Simple Calculator',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                // const Text('Please Enter 1st Number'),
+                TextField(
+                    controller: firsttextEditingController,
+                    decoration: InputDecoration(
+                        hintText: 'First Number',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0))),
+                    keyboardType: const TextInputType.numberWithOptions(),
+                    textAlign: TextAlign.center),
+                const SizedBox(
+                  height: 10,
+                ),
+                // const Text('Please Enter 2st Number'),
+                TextField(
+                    controller: secondtextEditingController,
+                    decoration: InputDecoration(
+                        hintText: 'Second Number',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0))),
+                    keyboardType: const TextInputType.numberWithOptions(),
+                    textAlign: TextAlign.center),
+                const SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () => {_calculate('+')},
+                        child: const Text('+')),
+                    ElevatedButton(
+                        onPressed: () => {_calculate('-')},
+                        child: const Text('-')),
+                    ElevatedButton(
+                        onPressed: () => {_calculate('*')},
+                        child: const Text('*')),
+                    ElevatedButton(
+                        onPressed: () => {_calculate('/')},
+                        child: const Text('/')),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text("Result " + _resultValue.toStringAsFixed(2),
+                    style: const TextStyle(fontSize: 40))
+              ],
+            ),
+          ),
         )),
       ),
     );
   }
 
-  void _pressMe() {
+  void _calculate(String operation) {
     setState(() {
-      _value = textEditingController.text;
-      print(_value);
+      double _firstValue = double.parse(firsttextEditingController.text);
+      double _secondValue = double.parse(secondtextEditingController.text);
+      switch (operation) {
+        case "+":
+          _resultValue = _firstValue + _secondValue;
+          break;
+        case "-":
+          _resultValue = _firstValue - _secondValue;
+          break;
+        case "*":
+          _resultValue = _firstValue * _secondValue;
+          break;
+        case "/":
+          _resultValue = _firstValue / _secondValue;
+          break;
+      }
+
+      // print(operation);
     });
   }
 }
