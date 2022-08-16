@@ -10,8 +10,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  TextEditingController firsttextEditingController = TextEditingController();
-  TextEditingController secondtextEditingController = TextEditingController();
+  TextEditingController firsttextEditingController =
+      TextEditingController(text: '0');
+  TextEditingController secondtextEditingController =
+      TextEditingController(text: '0');
   double _firstValue = 0;
   double _secondValue = 0;
   double _resultValue = 0;
@@ -94,6 +96,7 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       double _firstValue = double.parse(firsttextEditingController.text);
       double _secondValue = double.parse(secondtextEditingController.text);
+
       switch (operation) {
         case "+":
           _resultValue = _firstValue + _secondValue;
@@ -109,7 +112,7 @@ class _MyAppState extends State<MyApp> {
           break;
       }
 
-      // print(operation);
+      print(_firstValue);
     });
   }
 }
